@@ -1,0 +1,5 @@
+print("ingrese 2 numeros ")
+numero1=int(print("ingrese primer numero: "))
+numero2=int(print("ingrese seegundo numero: "))
+print("el resultadode la suma es ", numero1+numero2 )
+print("el resultado de la resta es ", numero1-numero2)
