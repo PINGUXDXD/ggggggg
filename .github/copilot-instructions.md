@@ -1,39 +1,44 @@
 # Copilot Instructions
 
-- This repository is a set of standalone Python scripts, not a packaged application. Most logic lives in root files like `calculadora.py`, `ayuda.py`, `troll.py`, `matenme.py`, `GG.py`, `OMG.py`, and `balatriño.py`.
-- There is no CI/test harness, no `requirements.txt`, and no build system. The expected workflow is manual execution with Python.
-- Use Python 3.10+ because several scripts use `match/case` syntax (`calculadora.py`, `troll.py`, `OMGg.py`, etc.).
-- Run individual scripts with:
+## Overview
+
+This repository consists of standalone Python scripts, each in the project root. There is no package structure, build system, or automated test harness. The primary workflow is to run scripts individually using Python 3.10+ (required for `match/case` syntax in several files).
+
+## Key Patterns & Structure
+
+- **Scripts are independent:** Each `.py` file is a self-contained CLI program, often menu-driven and interactive, with Spanish-language prompts and output.
+- **No external dependencies:** Only the Python standard library is used. Do not add third-party packages or a `requirements.txt`.
+- **Entrypoint conventions:** Most scripts are run directly (e.g., `python calculadora.py`). Some use `if __name__ == "__main__":` for entry, as in [calculadora.py](../../calculadora.py).
+- **Error handling:** See [ayuda.py](../../ayuda.py) for the preferred pattern—handle `ValueError`, `EOFError`, `IndexError`, and generic `Exception` separately for user input.
+- **Menu loops:** Many scripts use `while True:` loops for repeated menu input (see [calculadora.py](../../calculadora.py), [troll.py](../../troll.py)).
+- **Function modularity:** [funciones.py](../../funciones.py) contains commented-out modular examples; new logic should be similarly decomposed when possible, but keep interactive code in the main script.
+- **Spanish UI:** All prompts, menus, and output should remain in Spanish. Preserve this style in all updates.
+
+## Developer Workflows
+
+- **Manual execution:** Run scripts directly, e.g.:
   - `python calculadora.py`
   - `python ayuda.py`
   - `python <script>.py`
-- Prefer preserving existing interactive Spanish UI style and prompt text when updating scripts.
+- **No automated tests:** Validation is manual—run the script and check its behavior.
+- **Debugging:** Fix syntax/runtime errors in place. Scripts like [OMG.py](../../OMG.py) and [balatro.py](../../balatro.py) have known issues (e.g., misuse of `print` return value, typos in `random.randit`).
 
-## Codebase patterns
+## Editing Guidelines
 
-- Many files are menu-driven CLI exercises with `while True:` loops and user input.
-- `calculadora.py` is the most complete example of a stable script: it uses a named function and `if __name__ == "__main__":` for entry.
-- `ayuda.py` shows the preferred error-handling pattern for user input: separate `ValueError`, `EOFError`, `IndexError`, and generic `Exception` branches.
-- `funciones.py` contains commented-out examples of modular operation functions; new logic should follow that decomposed style when appropriate.
+- **No package structure:** Do not create subfolders or modules unless absolutely necessary. All scripts should remain in the root.
+- **Add new files only for standalone scripts or clear utility modules.**
+- **Preserve interactive CLI style and Spanish prompts.**
+- **Do not add external dependencies.**
+- **If a script is incomplete or buggy, note this in the change summary and avoid large refactors without confirmation.**
 
-## Key points for editing
+## Examples
 
-- Do not assume a package structure. Add new files only if they are standalone scripts or clearly needed utility modules.
-- Keep the root directory as the main project surface.
-- Fix syntax/runtime issues in place when they are obvious, especially in interactive scripts.
-- Be cautious with scripts that appear incomplete or buggy, for example:
-  - `OMG.py` uses `select=int(print("seleccione una fruta: "))`, which returns `None`.
-  - `balatro.py` has `random.randit` and invalid numeric literal syntax.
-- Avoid adding external dependencies; the repository currently uses only Python standard library features.
+- [calculadora.py](../../calculadora.py): Stable, menu-driven calculator with function entrypoint.
+- [ayuda.py](../../ayuda.py): Shows robust input error handling.
+- [funciones.py](../../funciones.py): Example of modular function decomposition (commented out).
 
-## Workflows
+## When in Doubt
 
-- No tests to run; validation is typically manual by executing the script and checking its menu/input behavior.
-- When adding new logic, favor a simple function entrypoint and preserve the Spanish prompts/menu labels.
-- If a script is converted to a reusable module, keep the original interactive behavior separated from the function definitions.
-
-## When in doubt
-
-- Match the repository’s existing style: simple procedural scripts, Spanish prompts, and interactive command-line menus.
-- Use direct file examples rather than generic advice.
-- If a script is clearly incomplete, note that in the change summary and avoid broad refactors without user confirmation.
+- Match the style: simple, procedural, interactive scripts with Spanish UI.
+- Use direct file examples for reference.
+- Ask for clarification before making broad changes to incomplete scripts.
